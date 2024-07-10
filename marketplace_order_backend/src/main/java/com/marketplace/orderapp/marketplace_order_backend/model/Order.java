@@ -1,4 +1,3 @@
-// Sample content for Order.java
 package com.marketplace.orderapp.marketplace_order_backend.model;
 
 import javax.persistence.*;
