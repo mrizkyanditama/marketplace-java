@@ -1,5 +1,7 @@
 package com.marketplace.orderapp.marketplace_order_backend.controller;
 
+import com.marketplace.orderapp.marketplace_order_backend.controller.mapper.OrderCreateMapper;
+import com.marketplace.orderapp.marketplace_order_backend.controller.request.OrderRequest;
 import com.marketplace.orderapp.marketplace_order_backend.model.Order;
 import com.marketplace.orderapp.marketplace_order_backend.model.OrderItem;
 import com.marketplace.orderapp.marketplace_order_backend.service.OrderService;
@@ -16,16 +18,20 @@ public class OrderController {
 
     private final OrderService orderService;
 
+    private final OrderCreateMapper orderCreateMapper;
+
     @Autowired
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, OrderCreateMapper orderCreateMapper) {
         this.orderService = orderService;
+        this.orderCreateMapper = orderCreateMapper;
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Object> createOrder(@RequestBody Order order, @RequestBody List<OrderItem> orderItems) {
+    public ResponseEntity<Object> createOrder(@RequestBody OrderRequest orderRequest) {
         try {
-            Order createdOrder = orderService.createOrder(order, orderItems);
-            return ResponseEntity.status(HttpStatus.OK).body(createdOrder);
+            Order order = orderCreateMapper.mapToOrder(orderRequest);
+            order.setOrderItems(orderCreateMapper.mapToOrderItems(orderRequest.getOrderItems()));
+            return ResponseEntity.status(HttpStatus.OK).body(order);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (InternalError e) {

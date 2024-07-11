@@ -16,7 +16,7 @@ public class OrderItem {
     private Order order;
 
     @Column(name = "product_id")
-    private Long productId;
+    private String productId;
 
     @Column(name = "quantity")
     private Integer quantity;
@@ -42,11 +42,11 @@ public class OrderItem {
         this.order = order;
     }
 
-    public Long getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
