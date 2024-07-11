@@ -6,13 +6,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "orders", indexes = {
+        @Index(name = "idx_customer_id", columnList = "customer_id"),
+})
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
-    private Long orderId;
+    private String orderId;
 
     @Column(name = "customer_id")
     private Long customerId;
@@ -28,11 +29,11 @@ public class Order {
 
     // Getters and setters (including constructors) for all fields
 
-    public Long getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Long orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 

@@ -8,9 +8,8 @@ import java.math.BigDecimal;
 public class OrderItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_item_id")
-    private Long orderItemId;
+    private String orderItemId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
@@ -27,11 +26,11 @@ public class OrderItem {
 
     // Getters and setters (including constructors) for all fields
 
-    public Long getOrderItemId() {
+    public String getOrderItemId() {
         return orderItemId;
     }
 
-    public void setOrderItemId(Long orderItemId) {
+    public void setOrderItemId(String orderItemId) {
         this.orderItemId = orderItemId;
     }
 
