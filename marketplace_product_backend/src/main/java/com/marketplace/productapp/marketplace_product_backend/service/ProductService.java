@@ -21,8 +21,8 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public List<Product> findProductsByTagName(String tagName) {
-        return productRepository.findProductsByTagName(tagName);
+    public List<Product> getProductsByTagNames(List<String> tagNames) {
+        return productRepository.findProductsByTagNames(tagNames);
     }
 
     public List<Product> findProductsByProductIds(List<String> productIds) {

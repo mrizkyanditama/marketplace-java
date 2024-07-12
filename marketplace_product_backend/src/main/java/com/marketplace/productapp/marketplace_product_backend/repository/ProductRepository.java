@@ -16,15 +16,15 @@ public class ProductRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<Product> findProductsByTagName(String tagName) {
+    public List<Product> findProductsByTagNames(List<String> tagNames) {
         String sql = "SELECT p.* FROM Product p " +
                      "JOIN Product_Tag pt ON p.product_id = pt.product_id " +
                      "JOIN Tag t ON pt.tag_id = t.tag_id " +
-                     "WHERE t.name = :tagName";
+                     "WHERE t.name IN :tagNames";
 
         return entityManager.createNativeQuery(sql, Product.class)
-                          .setParameter("tagName", tagName)
-                          .getResultList();
+                            .setParameter("tagNames", tagNames)
+                            .getResultList();
     }
 
     public List<Product> findProductsByProductIds(List<String> productIds) {
