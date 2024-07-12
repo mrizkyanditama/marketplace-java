@@ -16,7 +16,6 @@ public class OrderCreateMapper {
         Order order = new Order();
         order.setCustomerId(orderRequest.getCustomerId());
         order.setOrderDate(orderRequest.getOrderDate());
-        order.setTotalAmount(orderRequest.getTotalAmount());
         // You can set other fields as needed
         return order;
     }

@@ -2,6 +2,7 @@ package com.marketplace.orderapp.marketplace_order_backend.controller;
 
 import com.marketplace.orderapp.marketplace_order_backend.controller.mapper.OrderCreateMapper;
 import com.marketplace.orderapp.marketplace_order_backend.controller.request.OrderRequest;
+import com.marketplace.orderapp.marketplace_order_backend.controller.validator.OrderCreateValidator;
 import com.marketplace.orderapp.marketplace_order_backend.model.Order;
 import com.marketplace.orderapp.marketplace_order_backend.model.OrderItem;
 import com.marketplace.orderapp.marketplace_order_backend.service.OrderService;
@@ -20,17 +21,23 @@ public class OrderController {
 
     private final OrderCreateMapper orderCreateMapper;
 
+    private final OrderCreateValidator orderCreateValidator;
+
     @Autowired
-    public OrderController(OrderService orderService, OrderCreateMapper orderCreateMapper) {
+    public OrderController(OrderService orderService, OrderCreateMapper orderCreateMapper, OrderCreateValidator orderCreateValidator) {
         this.orderService = orderService;
         this.orderCreateMapper = orderCreateMapper;
+        this.orderCreateValidator = orderCreateValidator;
     }
 
     @PostMapping("/create")
     public ResponseEntity<Object> createOrder(@RequestBody OrderRequest orderRequest) {
         try {
+            orderCreateValidator.validate(orderRequest);
+
             Order order = orderCreateMapper.mapToOrder(orderRequest);
             order.setOrderItems(orderCreateMapper.mapToOrderItems(orderRequest.getOrderItems()));
+
 
             Order result = orderService.createOrder(order);
             return ResponseEntity.status(HttpStatus.OK).body(result);

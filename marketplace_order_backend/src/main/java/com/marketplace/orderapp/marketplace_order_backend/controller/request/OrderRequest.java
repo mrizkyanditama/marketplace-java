@@ -8,7 +8,6 @@ public class OrderRequest {
 
     private Long customerId;
     private LocalDateTime orderDate;
-    private BigDecimal totalAmount;
     private List<OrderItemRequest> orderItems;
 
     // Getters and setters
@@ -27,14 +26,6 @@ public class OrderRequest {
 
     public void setOrderDate(LocalDateTime orderDate) {
         this.orderDate = orderDate;
-    }
-
-    public BigDecimal getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(BigDecimal totalAmount) {
-        this.totalAmount = totalAmount;
     }
 
     public List<OrderItemRequest> getOrderItems() {

@@ -55,6 +55,7 @@ public class OrderService {
             try {
                 orderItemRepository.insertOrderItem(orderItem);
             } catch (Exception e) {
+                System.out.println(e.getMessage());
                 throw new InternalError("Failed to save order item with id: " + orderItem.getOrderItemId(), e);
             }
         }
