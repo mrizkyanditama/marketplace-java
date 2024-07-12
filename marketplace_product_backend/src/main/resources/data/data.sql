@@ -1,4 +1,4 @@
-INSERT INTO Product (product_id, name, description)
+INSERT INTO products (product_id, name, description)
 VALUES 
     ('1', 'Dell Laptop', 'High-performance laptop from Dell'),
     ('2', 'Samsung Smartphone', 'Feature-rich smartphone from Samsung'),
@@ -19,9 +19,10 @@ VALUES
     ('17', 'Apple MacBook', 'Sleek and powerful laptop from Apple'),
     ('18', 'JBL Bluetooth Speaker', 'Portable Bluetooth speaker from JBL'),
     ('19', 'Samsung Smart Refrigerator', 'Smart refrigerator with advanced features from Samsung'),
-    ('20', 'Philips Electric Shaver', 'High-performance electric shaver from Philips');
+    ('20', 'Philips Electric Shaver', 'High-performance electric shaver from Philips')
+ON CONFLICT DO NOTHING;
 
-INSERT INTO Tag (tag_id, name)
+INSERT INTO tags (tag_id, name)
 VALUES 
     ('1', 'Electronics'),
     ('2', 'Mobile'),
@@ -32,28 +33,29 @@ VALUES
     ('7', 'Laptop'),
     ('8', 'Smartphone'),
     ('9', 'Audio'),
-    ('10', 'Tablet');
+    ('10', 'Tablet')
+ON CONFLICT DO NOTHING;
 
-INSERT INTO Product_Tag (product_id, tag_id)
+INSERT INTO product_tag (product_tag_id, product_id, tag_id)
 VALUES 
-    ('1', '1'),   -- Dell Laptop - Electronics
-    ('2', '8'),   -- Samsung Smartphone - Smartphone
-    ('3', '1'),   -- Apple iPad - Electronics
-    ('3', '10'),  -- Apple iPad - Tablet
-    ('4', '9'),   -- Sony Headphones - Audio
-    ('5', '5'),   -- LG TV - Home Appliance
-    ('6', '1'),   -- HP Printer - Electronics
-    ('7', '7'),   -- Microsoft Surface - Laptop
-    ('8', '6'),   -- Canon Camera - Camera
-    ('9', '9'),   -- Bose Speakers - Audio
-    ('10', '8'),  -- Xiaomi Smartwatch - Smartphone
-    ('11', '8'),  -- Google Pixel Phone - Smartphone
-    ('12', '7'),  -- Lenovo ThinkPad - Laptop
-    ('13', '1'),  -- Amazon Kindle - Electronics
-    ('14', '6'),  -- GoPro Action Camera - Camera
-    ('15', '6'),  -- Nikon DSLR Camera - Camera
-    ('16', '5'),  -- Panasonic Microwave - Home Appliance
-    ('17', '7'),  -- Apple MacBook - Laptop
-    ('18', '9'),  -- JBL Bluetooth Speaker - Audio
-    ('19', '5'),  -- Samsung Smart Refrigerator - Home Appliance
-    ('20', '9');  -- Philips Electric Shaver - Audio
+    ('1', '1', '1'),   -- Dell Laptop - Electronics
+    ('2', '2', '8'),   -- Samsung Smartphone - Smartphone
+    ('3', '3', '1'),   -- Apple iPad - Electronics
+    ('4', '3', '10'),  -- Apple iPad - Tablet
+    ('5', '4', '9'),   -- Sony Headphones - Audio
+    ('6', '5', '5'),   -- LG TV - Home Appliance
+    ('7', '6', '1'),   -- HP Printer - Electronics
+    ('8', '7', '7'),   -- Microsoft Surface - Laptop
+    ('9', '8', '6'),   -- Canon Camera - Camera
+    ('10', '9', '9'),  -- Bose Speakers - Audio
+    ('11', '10', '8'),  -- Xiaomi Smartwatch - Smartphone
+    ('12', '11', '8'),  -- Google Pixel Phone - Smartphone
+    ('13', '12', '7'),  -- Lenovo ThinkPad - Laptop
+    ('14', '13', '1'),  -- Amazon Kindle - Electronics
+    ('15', '14', '6'),  -- GoPro Action Camera - Camera
+    ('16', '15', '6'),  -- Nikon DSLR Camera - Camera
+    ('17', '16', '5'),  -- Panasonic Microwave - Home Appliance
+    ('18', '17', '7'),  -- Apple MacBook - Laptop
+    ('19', '18', '9'),  -- JBL Bluetooth Speaker - Audio
+    ('20', '19', '5'),  -- Samsung Smart Refrigerator - Home Appliance
+    ('21', '20', '9');  -- Philips Electric Shaver - Audio

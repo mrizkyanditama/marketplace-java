@@ -25,7 +25,7 @@ public class ProductService {
         return productRepository.findProductsByTagNames(tagNames);
     }
 
-    public List<Product> findProductsByProductIds(List<String> productIds) {
+    public List<Product> findProductsByProductIds(List<Long> productIds) {
         return productRepository.findProductsByProductIds(productIds);
     }
 }

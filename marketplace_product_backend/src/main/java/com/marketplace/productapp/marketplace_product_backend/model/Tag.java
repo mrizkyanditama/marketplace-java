@@ -23,8 +23,5 @@ public class Tag {
     @Column(nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy = "tags")
-    private Set<Product> products = new HashSet<>();
-
     // Getters and setters
 }

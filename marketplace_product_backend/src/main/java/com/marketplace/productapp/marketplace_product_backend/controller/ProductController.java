@@ -24,13 +24,12 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/tags")
-    public List<Product> getProductsByTagNames(@RequestParam("tagNames") List<String> tagNames) {
-        return productService.getProductsByTagNames(tagNames);
-    }
-
-    @PostMapping("/ids")
-    public List<Product> getProductsByIds(@RequestBody List<String> productIds) {
-        return productService.findProductsByProductIds(productIds);
+    @GetMapping("")
+    public List<Product> getProducts(@RequestParam(name = "tagNames", required = false) List<String> tagNames, @RequestParam(name = "productIds", required = false) List<Long> productIds) {
+        if (tagNames != null && !tagNames.isEmpty()) {
+            return productService.getProductsByTagNames(tagNames);
+        } else {
+            return productService.findProductsByProductIds(productIds);
+        }
     }
 }

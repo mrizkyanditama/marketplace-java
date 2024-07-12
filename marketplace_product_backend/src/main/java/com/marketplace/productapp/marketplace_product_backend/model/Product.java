@@ -30,12 +30,4 @@ public class Product {
 
     @Column(nullable = false)
     private String description;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "product_tag",
-               joinColumns = @JoinColumn(name = "product_id"),
-               inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    private Set<Tag> tags = new HashSet<>();
-
-    // Getters and setters
 }
