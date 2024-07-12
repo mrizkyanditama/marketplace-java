@@ -1,4 +1,4 @@
-# Start with a base image containing Maven and OpenJDK 17
+# Use a base image with JDK and Maven installed
 FROM maven:3.8.4-openjdk-17-slim AS build
 
 # Set the working directory
@@ -7,17 +7,22 @@ WORKDIR /app
 # Copy the Maven project descriptor and POM file
 COPY pom.xml .
 
-# Copy the entire project and build it
-COPY src ./src
-RUN mvn clean package -DskipTests
+# Fetch dependencies first to optimize caching
+RUN mvn dependency:go-offline
 
-# Create a separate stage for the runtime image
+# Copy the entire project
+COPY src ./src
+
+# Stage 1: Build the application
+RUN mvn package -DskipTests
+
+# Stage 2: Runtime image
 FROM openjdk:17-jdk-slim
 
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the JAR file from the previous stage
+# Copy the built JAR file from the build stage
 COPY --from=build /app/target/marketplace_order_backend-0.0.1-SNAPSHOT.jar ./app.jar
 
 # Expose the port that the Spring Boot application uses

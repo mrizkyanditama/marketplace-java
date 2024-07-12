@@ -1,7 +1,10 @@
 package com.marketplace.orderapp.marketplace_order_backend.model;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "order_items")
@@ -13,6 +16,7 @@ public class OrderItem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
+    @JsonBackReference
     private Order order;
 
     @Column(name = "product_id")

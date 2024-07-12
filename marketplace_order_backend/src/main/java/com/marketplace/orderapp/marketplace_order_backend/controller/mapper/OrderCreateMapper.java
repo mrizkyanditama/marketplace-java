@@ -3,12 +3,14 @@ package com.marketplace.orderapp.marketplace_order_backend.controller.mapper;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Component;
+
 import com.marketplace.orderapp.marketplace_order_backend.controller.request.OrderItemRequest;
 import com.marketplace.orderapp.marketplace_order_backend.controller.request.OrderRequest;
 import com.marketplace.orderapp.marketplace_order_backend.model.Order;
 import com.marketplace.orderapp.marketplace_order_backend.model.OrderItem;
 
-
+@Component
 public class OrderCreateMapper {
     public Order mapToOrder(OrderRequest orderRequest) {
         Order order = new Order();

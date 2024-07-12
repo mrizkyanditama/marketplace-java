@@ -36,6 +36,8 @@ services:
       POSTGRES_PASSWORD: password
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   order_backend:
     build: ./marketplace_order_backend
@@ -45,9 +47,14 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/marketplace_order
       - SPRING_DATASOURCE_USERNAME=user
       - SPRING_DATASOURCE_PASSWORD=password
+    volumes:
+      - ./marketplace_order_backend/src:/app/src
     depends_on:
       - postgres
       # - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+  
+volumes:
+  postgres_data:
 
   # productApp:
   #   build: ./productApp
@@ -59,24 +66,3 @@ services:
   #     - SPRING_DATASOURCE_PASSWORD=password
   #     - SPRING_REDIS_HOST=redis
 
-  # trxHistoryStoreApp:
-  #   build: ./trxHistoryStoreApp
-  #   ports:
-  #     - "8083:8080"
-  #   environment:
-  #     - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/marketplace
-  #     - SPRING_DATASOURCE_USERNAME=user
-  #     - SPRING_DATASOURCE_PASSWORD=password
-  #     - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
-  #     - SPRING_ELASTICSEARCH_URL=http://elasticsearch:9200
-
-  # trxHistoryQueryApp:
-  #   build: ./trxHistoryQueryApp
-  #   ports:
-  #     - "8084:8080"
-  #   environment:
-  #     - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/marketplace
-  #     - SPRING_DATASOURCE_USERNAME=user
-  #     - SPRING_DATASOURCE_PASSWORD=password
-  #     - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
-  #     - SPRING_ELASTICSEARCH_URL=http://elasticsearch:9200

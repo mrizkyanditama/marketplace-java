@@ -31,7 +31,9 @@ public class OrderController {
         try {
             Order order = orderCreateMapper.mapToOrder(orderRequest);
             order.setOrderItems(orderCreateMapper.mapToOrderItems(orderRequest.getOrderItems()));
-            return ResponseEntity.status(HttpStatus.OK).body(order);
+
+            Order result = orderService.createOrder(order);
+            return ResponseEntity.status(HttpStatus.OK).body(result);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (InternalError e) {

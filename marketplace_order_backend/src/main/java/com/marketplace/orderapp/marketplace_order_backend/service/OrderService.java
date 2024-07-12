@@ -9,6 +9,8 @@ import com.marketplace.orderapp.marketplace_order_backend.model.Order;
 import com.marketplace.orderapp.marketplace_order_backend.model.OrderItem;
 import com.marketplace.orderapp.marketplace_order_backend.repository.OrderItemRepository;
 import com.marketplace.orderapp.marketplace_order_backend.repository.OrderRepository;
+import com.marketplace.orderapp.marketplace_order_backend.shared.constant.EventCode;
+import com.marketplace.orderapp.marketplace_order_backend.shared.utils.RandomUniqueIdUtil;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -27,7 +29,8 @@ public class OrderService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public Order createOrder(Order order, List<OrderItem> orderItems) throws IllegalArgumentException {
+    public Order createOrder(Order order) throws IllegalArgumentException {
+        List<OrderItem> orderItems = order.getOrderItems();
         validateOrder(order, orderItems);
 
         // Set order date if not provided
@@ -39,23 +42,18 @@ public class OrderService {
         order.setTotalAmount(totalAmount);
 
         try {
-            int inserted = orderRepository.insertOrder(order);
-
-            if (inserted < 1) {
-                throw new InternalError("Order not successfully inserted");
-            }
+            order.setOrderId(RandomUniqueIdUtil.generateUniqueId(EventCode.ORDER));
+            orderRepository.insertOrder(order);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             throw new InternalError("Failed to save order", e);
         }
 
         for (OrderItem orderItem : orderItems) {
+            orderItem.setOrderItemId(RandomUniqueIdUtil.generateUniqueId(EventCode.ORDER_ITEM));
             orderItem.setOrder(order);
             try {
-                int inserted = orderItemRepository.insertOrderItem(orderItem);
-
-                if (inserted < 1) {
-                    throw new InternalError("Order Item not successfully inserted");
-                }
+                orderItemRepository.insertOrderItem(orderItem);
             } catch (Exception e) {
                 throw new InternalError("Failed to save order item with id: " + orderItem.getOrderItemId(), e);
             }
